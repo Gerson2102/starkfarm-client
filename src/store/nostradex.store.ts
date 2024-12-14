@@ -33,13 +33,15 @@ export class NostraDex extends Jediswap {
             poolData.baseApr === '0' ? 0.0 : parseFloat(poolData.baseApr);
           const rewardApr = parseFloat(poolData.rewardApr);
 
-          let category = Category.Others;
+          const category: Category[] = [Category.Others];
           let riskFactor = 3;
           if (poolData.id === 'USDC-USDT') {
-            category = Category.Stable;
+            category.push(Category.Stable);
             riskFactor = 0.5;
           } else if (poolData.id.includes('STRK')) {
-            category = Category.STRK;
+            category.push(Category.STRK);
+          } else if (poolData.id.includes('ETH')) {
+            category.push(Category.ETH);
           }
           const poolInfo: PoolInfo = {
             pool: {

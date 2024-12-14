@@ -27,7 +27,12 @@ export class NostraDegen extends Jediswap {
             poolData.baseApr === '0' ? 0.0 : parseFloat(poolData.baseApr);
           const rewardApr = parseFloat(poolData.rewardApr);
           const isStrkPool = poolData.id.includes('STRK');
-          const category = isStrkPool ? Category.STRK : Category.Others;
+          const category: Category[] = [Category.Others];
+          if (isStrkPool) {
+            category.push(Category.STRK);
+          } else if (poolData.id.includes('ETH')) {
+            category.push(Category.ETH);
+          }
 
           const _poolName = poolData.id;
           const poolInfo: PoolInfo = {

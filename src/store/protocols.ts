@@ -187,6 +187,8 @@ export function getPoolInfoFromStrategy(
     category.push(Category.STRK);
   } else if (strat.name.includes('USDC')) {
     category.push(Category.Stable);
+  } else if (strat.name.includes('ETH')) {
+    category.push(Category.ETH);
   }
   return {
     pool: {

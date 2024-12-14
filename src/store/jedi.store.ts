@@ -45,14 +45,16 @@ export class Jediswap extends IDapp<string> {
         .filter(this.commonVaultFilter)
         .forEach((poolName) => {
           const arr = myData[poolName];
-          let category = Category.Others;
+          const category: Category[] = [Category.Others];
 
           let riskFactor = 3;
           if (poolName === 'USDC/USDT') {
-            category = Category.Stable;
+            category.push(Category.Stable);
             riskFactor = 0.5;
           } else if (poolName.includes('STRK')) {
-            category = Category.STRK;
+            category.push(Category.STRK);
+          } else if (poolName.includes('ETH')) {
+            category.push(Category.ETH);
           }
 
           const tokens: TokenName[] = <TokenName[]>poolName.split('/');

@@ -9,6 +9,7 @@ import fetchWithRetry from '@/utils/fetchWithRetry';
 export enum Category {
   Stable = 'Stable Pools',
   STRK = 'STRK Pools',
+  ETH = 'ETH Pools',
   Others = 'Others',
 }
 
@@ -50,7 +51,7 @@ export interface PoolInfo extends PoolMetadata {
   tvl: number;
   apr: number; // not in %
   aprSplits: APRSplit[];
-  category: Category;
+  category: Category[];
   type: PoolType;
   isLoading?: boolean;
   additional: {
@@ -77,7 +78,7 @@ export function getDefaultPoolInfo(): PoolInfo {
     apr: 0,
     tvl: 0,
     aprSplits: [],
-    category: Category.Others,
+    category: [Category.Others],
     type: PoolType.Derivatives,
     additional: {
       riskFactor: 0,

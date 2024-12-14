@@ -53,13 +53,15 @@ export class STRKFarm extends IDapp<STRKFarmStrategyAPIResult> {
     const rawPools: STRKFarmStrategyAPIResult[] = data.strategies;
     const pools: PoolInfo[] = [];
     return rawPools.map((rawPool) => {
-      let category = Category.Others;
+      const categories = [Category.Others];
       const poolName = rawPool.name;
       const riskFactor = rawPool.riskFactor;
       if (poolName.includes('USDC') || poolName.includes('USDT')) {
-        category = Category.Stable;
+        categories.push(Category.Stable);
       } else if (poolName.includes('STRK')) {
-        category = Category.STRK;
+        categories.push(Category.STRK);
+      } else if (poolName.includes('ETH')) {
+        categories.push(Category.ETH);
       }
       const poolInfo: PoolInfo = {
         pool: {
@@ -75,7 +77,7 @@ export class STRKFarm extends IDapp<STRKFarmStrategyAPIResult> {
         apr: 0,
         tvl: rawPool.tvlUsd,
         aprSplits: [],
-        category,
+        category: categories,
         type: PoolType.Derivatives,
         lending: {
           collateralFactor: 0,

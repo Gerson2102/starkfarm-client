@@ -59,11 +59,11 @@ export class NimboraDex extends IDapp<NimboraDexDoc> {
         .filter(this.commonVaultFilter)
         .forEach((poolName) => {
           const poolData: NimboraDexDoc = data[poolName];
-          let category = Category.Others;
+          const category: Category[] = [Category.Others];
           const riskFactor = 0.75;
 
           if (poolName == 'USDC') {
-            category = Category.Stable;
+            category.push(Category.Stable);
           }
 
           const logo =

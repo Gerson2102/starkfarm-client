@@ -29,11 +29,13 @@ export class Hashstack extends IDapp<LendingSpace.MyBaseAprDoc[]> {
         const arr = myData[poolName];
         if (arr.length === 0) return;
 
-        let category = Category.Others;
+        const category: Category[] = [Category.Others];
         if (['USDC', 'USDT'].includes(poolName)) {
-          category = Category.Stable;
+          category.push(Category.Stable);
         } else if (poolName.includes('STRK')) {
-          category = Category.STRK;
+          category.push(Category.STRK);
+        } else if (poolName.includes('ETH')) {
+          category.push(Category.ETH);
         }
 
         const logo1 = CONSTANTS.LOGOS[<TokenName>poolName];

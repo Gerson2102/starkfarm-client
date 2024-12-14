@@ -57,11 +57,13 @@ export class MyProtocol extends IDapp<BaseAPYT> {
                 .filter(this.commonVaultFilter)
                 .forEach((poolName) => {
                 const arr = myData[poolName];
-                let category = Category.Others;
+                let category: Category[] = [Category.Others];
                 if (poolName === 'USDC/USDT') {
-                    category = Category.Stable;
+                    category.push(Category.Stable);
                 } else if (poolName.includes('STRK')) {
-                    category = Category.STRK;
+                    category.push(Category.STRK);
+                } else if (poolName.includes('ETH')) {
+                    category.push(Category.ETH);
                 }
 
                 const tokens: TokenName[] = poolName.split('/');
@@ -223,11 +225,13 @@ export class MyProtocol extends IDapp<BaseAPYT> {
                 .filter(this.commonVaultFilter)
                 .forEach((poolName) => {
                 const arr = myData[poolName];
-                let category = Category.Others;
+                let category: Category[] = [Category.Others];
                 if (poolName === 'USDC/USDT') {
-                    category = Category.Stable;
+                    category.push(Category.Stable);
                 } else if (poolName.includes('STRK')) {
-                    category = Category.STRK;
+                    category.push(Category.STRK);
+                } else if (poolName.includes('ETH')) {
+                    category.push(Category.ETH);
                 }
 
                 const tokens: TokenName[] = poolName.split('/');

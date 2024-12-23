@@ -56,13 +56,15 @@ export namespace LendingSpace {
         const arr = myData[poolName];
         if (arr.length === 0) return;
 
-        const category: Category[] = [Category.Others];
+        const category: Category[] = [];
         if (['USDC', 'USDT'].includes(poolName)) {
           category.push(Category.Stable);
         } else if (poolName.includes('STRK')) {
           category.push(Category.STRK);
         } else if (poolName.includes('ETH')) {
           category.push(Category.ETH);
+        } else {
+          category.push(Category.Others);
         }
 
         const logo1 = CONSTANTS.LOGOS[<TokenName>poolName];

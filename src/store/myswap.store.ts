@@ -77,7 +77,7 @@ export class MySwap extends IDapp<IndexedPoolData> {
         .filter(this.commonVaultFilter)
         .forEach((poolName) => {
           const arr = myData[poolName];
-          const category: Category[] = [Category.Others];
+          const category: Category[] = [];
           let riskFactor = 3;
           if (poolName === 'USDC/USDT') {
             category.push(Category.Stable);
@@ -86,6 +86,8 @@ export class MySwap extends IDapp<IndexedPoolData> {
             category.push(Category.STRK);
           } else if (poolName.includes('ETH')) {
             category.push(Category.ETH);
+          } else {
+            category.push(Category.Others);
           }
 
           const tokens: TokenName[] = <TokenName[]>poolName.split('/');

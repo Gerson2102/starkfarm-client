@@ -62,7 +62,7 @@ export class Haiko extends IDapp<Pool[]> {
         .filter(this.commonVaultFilter)
         .forEach((poolName) => {
           const arr = myData[poolName];
-          const category: Category[] = [Category.Others];
+          const category: Category[] = [];
           let riskFactor = 3;
           if (poolName === 'USDC/USDT') {
             category.push(Category.Stable);
@@ -71,6 +71,8 @@ export class Haiko extends IDapp<Pool[]> {
             category.push(Category.STRK);
           } else if (poolName.includes('ETH')) {
             category.push(Category.ETH);
+          } else {
+            category.push(Category.Others);
           }
 
           const tokens: TokenName[] = <TokenName[]>poolName.split('/');

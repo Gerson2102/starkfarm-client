@@ -1,6 +1,7 @@
 import CONSTANTS, { TokenName } from '@/constants';
 import {
   Category,
+  getCategoriesFromName,
   PoolInfo,
   PoolType,
   ProtocolAtoms,
@@ -29,16 +30,7 @@ export class Hashstack extends IDapp<LendingSpace.MyBaseAprDoc[]> {
         const arr = myData[poolName];
         if (arr.length === 0) return;
 
-        const category: Category[] = [];
-        if (['USDC', 'USDT'].includes(poolName)) {
-          category.push(Category.Stable);
-        } else if (poolName.includes('STRK')) {
-          category.push(Category.STRK);
-        } else if (poolName.includes('ETH')) {
-          category.push(Category.ETH);
-        } else {
-          category.push(Category.Others);
-        }
+        const category: Category[] = getCategoriesFromName(poolName);
 
         const logo1 = CONSTANTS.LOGOS[<TokenName>poolName];
 

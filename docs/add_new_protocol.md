@@ -57,14 +57,7 @@ export class MyProtocol extends IDapp<BaseAPYT> {
                 .filter(this.commonVaultFilter)
                 .forEach((poolName) => {
                 const arr = myData[poolName];
-                let category: Category[] = [Category.Others];
-                if (poolName === 'USDC/USDT') {
-                    category.push(Category.Stable);
-                } else if (poolName.includes('STRK')) {
-                    category.push(Category.STRK);
-                } else if (poolName.includes('ETH')) {
-                    category.push(Category.ETH);
-                }
+                let category: Category[] = getCategoriesFromName(poolName);
 
                 const tokens: TokenName[] = poolName.split('/');
                 const logo1 = CONSTANTS.LOGOS[tokens[0]];

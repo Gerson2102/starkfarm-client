@@ -64,6 +64,8 @@ export class NimboraDex extends IDapp<NimboraDexDoc> {
 
           if (poolName == 'USDC') {
             category.push(Category.Stable);
+          } else if (poolName == 'ETH') {
+            category.push(Category.ETH);
           } else {
             category.push(Category.Others);
           }

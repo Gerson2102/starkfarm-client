@@ -188,13 +188,35 @@ export const StrkLendingIncentivesAtom = atom((get) => {
   return _data;
 });
 
-/** Given pool name, returns Appropriate category */
-export function getCategoryFromName(poolName: string) {
-  let category = Category.Others;
-  if (['USDC', 'USDT'].includes(poolName)) {
-    category = Category.Stable;
-  } else if (poolName.includes('STRK')) {
-    category = Category.STRK;
+/**
+  Given pool name, returns appropriate category
+  @param poolName: name of the pool
+  @param isStable: default condition, suitable for pools with just one token like lending
+  @returns: Category[]
+*/
+export function getCategoriesFromName(
+  poolName: string,
+  isStable: boolean = ['USDC', 'USDT'].includes(poolName),
+): Category[] {
+  const categories = [];
+
+  // a pool can be both STRK and ETH
+  if (poolName.includes('STRK')) {
+    categories.push(Category.STRK);
   }
-  return category;
+  if (poolName.includes('ETH')) {
+    categories.push(Category.ETH);
+  }
+
+  // if a pool is already STRK or ETH, it cant be stable
+  if (isStable && categories.length === 0) {
+    categories.push(Category.Stable);
+  }
+
+  // fallback
+  if (categories.length === 0) {
+    categories.push(Category.Others);
+  }
+
+  return categories;
 }
